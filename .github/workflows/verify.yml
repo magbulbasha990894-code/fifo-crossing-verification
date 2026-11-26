@@ -1,0 +1,12 @@
+name: Verify FIFO
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 check_model.py
+      - run: sudo apt-get update && sudo apt-get install -y iverilog
+      - run: python3 run_test.py
